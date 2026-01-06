@@ -1,1 +1,6 @@
-console.log("Hello via Bun!");
+export class Wame {
+  public static test() {
+    console.log("test method");
+    return "test";
+  }
+}
