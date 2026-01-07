@@ -1,5 +1,5 @@
 {
-  "name": "@gonzalobertomeu/wame",
+  "name": "wame",
   "module": "index.ts",
   "type": "module",
   "devDependencies": {
