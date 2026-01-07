@@ -3,4 +3,6 @@ export class Wame {
     console.log("test method");
     return "test";
   }
+
+  public start() {}
 }
