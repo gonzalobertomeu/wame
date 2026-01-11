@@ -1,6 +1,2 @@
-export class Wame {
-  public static test() {
-    console.log("test method");
-    return "test";
-  }
-}
+import { Wame } from "./src/Wame";
+export { Wame };
