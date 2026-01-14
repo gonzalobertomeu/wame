@@ -9,7 +9,7 @@ export class Config {
   private envs: Record<string, unknown>;
   private constructor() {
     this.envs = {
-      port: Number(process.env.PORT) ?? 3000,
+      port: Number(process.env.PORT ?? 3000),
     };
   }
   private get<T>(key: string): T {

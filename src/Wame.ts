@@ -3,19 +3,28 @@ import { ServerFactory } from "./network/ServerFactory";
 
 export class Wame {
   private server: Server<undefined> | undefined;
-  private factory: ServerFactory;
+  private factory: ServerFactory<undefined>;
   public constructor() {
     console.log("new wame instance created");
     this.factory = new ServerFactory();
   }
 
   public serve() {
-    this.server = this.factory.create();
+    try {
+      this.server = this.factory.create();
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   public port() {
     return this.server?.port;
   }
 
-  public config() {}
+  public config() {
+    return {
+      api: this.factory.setApiRoutes,
+      events: this.factory.setWebsocketEvents,
+    };
+  }
 }
