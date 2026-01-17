@@ -24,7 +24,10 @@ export class WebSockets {
   public message(ws: Socket, message: string) {
     try {
       const msg = Message.fromString(message);
-      this.router.handle(ws, msg);
+      const response = this.router.handle(ws, msg);
+      if (response) {
+        new Response(ws).send(response);
+      }
     } catch (error) {
       new Response(ws).error((error as Error).message);
     }

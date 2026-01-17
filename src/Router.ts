@@ -3,10 +3,14 @@ import type { Message } from "./communication/Message";
 import type { User } from "./models/User";
 import type { Socket } from "./types/WameTypes";
 
-export type RouterMethod = (user: User) => void;
+export type RouterMethod = (user: User) => any;
 export class Router {
   private methods: Record<string, RouterMethod> = {
-    JOIN_ROOM: (user: User) => {},
+    JOIN_ROOM: (user: User) => {
+      console.log("trying to join room");
+      console.log(user.getConnectionId());
+      return { message: "trying to join!" };
+    },
   };
   public constructor(private manager: Manager) {}
 
@@ -17,7 +21,7 @@ export class Router {
     if (!handler) {
       throw new Error(`action <${message.action}> not found`);
     }
-    handler(user);
+    return handler(user);
   }
 
   public set(action: string, fn: RouterMethod) {

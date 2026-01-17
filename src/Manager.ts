@@ -23,6 +23,12 @@ export class Manager {
   }
 
   public connectionHasUser(connectionId: string) {
+    const lobbyUser = this.lobby.find(
+      (u) => u.getConnectionId() == connectionId,
+    );
+    if (lobbyUser) {
+      return lobbyUser;
+    }
     for (const room of this.rooms) {
       const user = room.list().find((u) => {
         return u.getConnectionId() == connectionId;
