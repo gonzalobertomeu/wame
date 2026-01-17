@@ -9,5 +9,9 @@
     "typescript": "^5"
   },
   "private": false,
-  "version": "0.0.1"
+  "version": "0.0.1",
+  "dependencies": {
+    "uuid": "^13.0.0",
+    "zod": "^4.3.5"
+  }
 }
