@@ -21,5 +21,12 @@ export class Room {
   public add(user: User) {
     this.users.push(user);
   }
+
+  public remove(user: User) {
+    const index = this.users.findIndex((u) => u.id === user.id);
+    if (index !== -1) {
+      this.users.splice(index, 1);
+    }
+  }
 }
 

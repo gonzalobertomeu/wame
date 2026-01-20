@@ -14,28 +14,28 @@ export class WebSockets {
     try {
       const user = this.manager.connectionHasUser(ws.data.connectionId);
       user.reconnect(ws);
-      console.log("user reconnecting");
-    } catch (error) {
-      const user = this.manager.createUser(ws, ws.data.connectionId);
+      console.log(`User ${ws.data.connectionId} reconnected`);
+    } catch {
+      this.manager.createUser(ws, ws.data.connectionId);
+      console.log(`User ${ws.data.connectionId} connected`);
     }
-    console.log(`client ${ws.data.connectionId} connected`);
   }
 
   public message(ws: Socket, message: string) {
     try {
       const msg = Message.fromString(message);
-      const response = this.router.handle(ws, msg);
+      const { user, room } = this.manager.findUser(ws.data.connectionId);
+      const response = this.router.handle(user, room, msg.action, msg.payload);
       if (response) {
         new Response(ws).send(response);
       }
     } catch (error) {
       new Response(ws).error((error as Error).message);
     }
-    console.log(`Message: ${message}`);
   }
 
   public close(ws: Socket, code: number, reason: string) {
-    console.log(`Socket ${ws.data.connectionId} has disconnected`);
+    console.log(`User ${ws.data.connectionId} disconnected (${code})`);
   }
 
   public static config(instance: WebSockets) {
